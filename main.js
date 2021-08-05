@@ -6,6 +6,8 @@ rightwristX = 0
 leftwristY = 0
 rightwristY = 0
 
+scoreleftwrist=0
+
 function preload()
 {
     song =loadSound("music.mp3")
@@ -26,6 +28,22 @@ function setup()
 function draw()
 {
     image(video,0,0,600,500);
+
+if(scoreleftwrist > 0.2)  //We use the scoreLeftWrist for checking that the leftWrist has been detected or is it in front of the webcam, if yes then only draw a red circle on x and y coordinates of leftWrist and do the calculation and change the volume of the song.We use the scoreLeftWrist for checking that the leftWrist has been detected or is it in front of the webcam, if yes then only draw a red circle on x and y coordinates of leftWrist and do the calculation and change the volume of the song.We use the scoreLeftWrist for checking that the leftWrist has been detected or is it in front of the webcam, if yes then only draw a red circle on x and y coordinates of leftWrist and do the calculation and change the volume of the song.We use the scoreLeftWrist for checking that the leftWrist has been detected or is it in front of the webcam, if yes then only draw a red circle on x and y coordinates of leftWrist and do the calculation and change the volume of the song.
+{
+
+
+
+    circle(leftwristX,leftwristY,20);
+    fill("#ff0000");
+    stroke("#ff0000")
+
+    InNumber_leftwristY=Number(leftwristY); // used  to convert into number
+remove_decimal=floor(InNumber_leftwristY)  // used to remove the decimal number
+volume = remove_decimal / 500;
+document.getElementById("volume").innerHTML = "volume = " + volume;
+song.setVolume(volume)
+}
 }
 
 function play()
@@ -57,5 +75,8 @@ if(results.length > 0 )
 
     console.log("leftwristX = " + leftwristX + "leftwristY = " + leftwristY)
     console.log("rightwristX = " + rightwristX + "rightwristY = " + rightwristY)
+
+    scoreleftwrist = results[0].pose.keypoints[9].score;
+    console.log(" score left wrist ="+ scoreleftwrist)
 }
     }
